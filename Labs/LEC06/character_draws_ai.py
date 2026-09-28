@@ -41,6 +41,17 @@ def move_rectangle():
     move_bottom()
     move_left()
 
+def triangle_base():
+    for step in range(101):
+        t = step / 100
+        x = 100 + (700 - 100) * t
+        y = 100 + (100 - 100) * t
+        draw_character(x, y)
+
+def move_triangle():
+    triangle_base()
+
 move_circle()
 move_rectangle()
+move_triangle()
 close_canvas()
