@@ -55,9 +55,17 @@ def triangle_up():
         y = 100 + (500 - 100) * t
         draw_character(x, y)
 
+def triangle_down():
+    for step in range(101):
+        t = step / 100
+        x = 400 + (100 - 400) * t
+        y = 500 + (100 - 500) * t
+        draw_character(x, y)
+
 def move_triangle():
     triangle_base()
     triangle_up()
+    triangle_down()
 
 move_circle()
 move_rectangle()
