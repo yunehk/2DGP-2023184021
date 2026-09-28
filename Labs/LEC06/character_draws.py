@@ -5,6 +5,13 @@ open_canvas(800, 600)
 
 character = load_image('character.png')
 
+def draw_character(x, y):
+    clear_canvas()
+    character.draw(x, y)
+    update_canvas()
+    delay(0.05)
+    return True
+
 def move_circle():
     print("circle")
 
@@ -13,10 +20,7 @@ def move_circle():
         x = 400 + 200 * math.cos(theta)
         y = 300 + 200 * math.sin(theta)
 
-        clear_canvas()
-        character.draw(x, y)
-        update_canvas()
-        delay(0.05)
+        draw_character(x, y)
     pass
 
 def move_top():
