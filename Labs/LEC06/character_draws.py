@@ -105,7 +105,11 @@ def move_rectangle():
 def move_triangle():
     print("triangle")
     move_triangle_bottom()
+    if not running:
+        return
     move_triangle_up()
+    if not running:
+        return
     move_triangle_down()
 
 
