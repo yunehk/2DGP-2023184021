@@ -13,6 +13,11 @@ def move_triangle_bottom():
 
 def move_triangle_up():
     print("triangle up")
+    for step in range(101):
+        t = step / 100
+        x = 700 + (400 - 700) * t
+        y = 100 + (500 - 100) * t
+        draw_character(x, y)
 
 
 def move_triangle_down():
