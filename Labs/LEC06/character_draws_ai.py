@@ -38,8 +38,9 @@ def move_line(x0, y0, x1, y1):
             return
 
 def move_circle():
-    for degree in range(361):
-        theta = math.radians(degree)
+    steps = math.ceil(2 * math.pi * 200 / PIXELS_PER_FRAME)
+    for step in range(steps + 1):
+        theta = 2 * math.pi * step / steps
         x = 400 + 200 * math.cos(theta)
         y = 300 + 200 * math.sin(theta)
         if not draw_character(x, y):
