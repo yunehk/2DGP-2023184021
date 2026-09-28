@@ -28,7 +28,8 @@ def draw_character(x, y):
     return True
 
 def move_line(x0, y0, x1, y1):
-    steps = 100
+    distance = math.hypot(x1 - x0, y1 - y0)
+    steps = max(1, math.ceil(distance / PIXELS_PER_FRAME))
     for step in range(steps + 1):
         t = step / steps
         x = x0 + (x1 - x0) * t
