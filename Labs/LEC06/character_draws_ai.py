@@ -116,5 +116,7 @@ try:
     while running:
         handle_events()
         run_cycle()
+except KeyboardInterrupt:
+    pass
 finally:
     close_canvas()
