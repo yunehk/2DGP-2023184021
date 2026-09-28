@@ -17,7 +17,8 @@ def move_triangle_bottom():
     for step in range(121):
         t = step / 120
         x = 100 + (700 - 100) * t
-        draw_character(x, 100)
+        if not draw_character(x, 100):
+            return
 
 
 def move_triangle_up():
@@ -26,7 +27,8 @@ def move_triangle_up():
         t = step / 100
         x = 700 + (400 - 700) * t
         y = 100 + (500 - 100) * t
-        draw_character(x, y)
+        if not draw_character(x, y):
+            return
 
 
 def move_triangle_down():
@@ -35,9 +37,13 @@ def move_triangle_down():
         t = step / 100
         x = 400 + (100 - 400) * t
         y = 500 + (100 - 500) * t
-        draw_character(x, y)
+        if not draw_character(x, y):
+            return
 
 def draw_character(x, y):
+    handle_events()
+    if not running:
+        return False
     clear_canvas()
     character.draw(x, y)
     update_canvas()
@@ -52,29 +58,34 @@ def move_circle():
         x = 400 + 200 * math.cos(theta)
         y = 300 + 200 * math.sin(theta)
 
-        draw_character(x, y)
+        if not draw_character(x, y):
+            return
     pass
 
 def move_top():
     print("top")
     for x in range(50, 751, 5):
-        draw_character(x, 550)
+        if not draw_character(x, 550):
+            return
     pass
 
 def move_right():
     print("right")
     for y in range(550, 49, -5):
-        draw_character(750, y)
+        if not draw_character(750, y):
+            return
 
 def move_bottom():
     print("bottom")
     for x in range(750, 49, -5):
-        draw_character(x, 50)
+        if not draw_character(x, 50):
+            return
 
 def move_left():
     print("left")
     for y in range(50, 551, 5):
-        draw_character(50, y)
+        if not draw_character(50, y):
+            return
 
 def move_rectangle():
     print("rectangle")
