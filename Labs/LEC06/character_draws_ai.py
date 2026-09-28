@@ -1,118 +1,80 @@
-from pico2d import *
+"""AI 구현: 원 → 사각형 → 삼각형을 반복한다. X 또는 ESC로 종료한다."""
 import math
 from pathlib import Path
+import time
+
+from pico2d import (
+    open_canvas, close_canvas, load_image, clear_canvas, update_canvas,
+    get_events, delay, SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE,
+)
 
 WIDTH, HEIGHT = 800, 600
-PIXELS_PER_FRAME = 5
-FRAME_DELAY = 0.01
+SPEED = 250  # 초당 이동 거리(픽셀)
+CENTER = (400, 300)
+RADIUS = 200
+RECTANGLE = [(50, 550), (750, 550), (750, 50), (50, 50)]
+TRIANGLE = [(100, 100), (700, 100), (400, 500)]
 
-def handle_events():
-    global running
-    for event in get_events():
-        if event.type == SDL_QUIT:
-            running = False
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
 
-def draw_character(x, y):
-    handle_events()
-    if not running:
-        return False
-    clear_canvas()
-    character.draw(x, y)
-    update_canvas()
-    delay(FRAME_DELAY)
-    return True
+def perimeter(vertices):
+    return sum(math.dist(vertices[i], vertices[(i + 1) % len(vertices)])
+               for i in range(len(vertices)))
 
-def move_line(x0, y0, x1, y1):
-    distance = math.hypot(x1 - x0, y1 - y0)
-    steps = max(1, math.ceil(distance / PIXELS_PER_FRAME))
-    for step in range(steps + 1):
-        t = step / steps
-        x = x0 + (x1 - x0) * t
-        y = y0 + (y1 - y0) * t
-        if not draw_character(x, y):
-            return
 
-def move_circle():
-    steps = math.ceil(2 * math.pi * 200 / PIXELS_PER_FRAME)
-    for step in range(steps + 1):
-        theta = 2 * math.pi * step / steps
-        x = 400 + 200 * math.cos(theta)
-        y = 300 + 200 * math.sin(theta)
-        if not draw_character(x, y):
-            return
+def polygon_position(vertices, distance):
+    """다각형의 변을 따라 distance만큼 이동한 위치를 계산한다."""
+    distance %= perimeter(vertices)
+    for i, (x0, y0) in enumerate(vertices):
+        x1, y1 = vertices[(i + 1) % len(vertices)]
+        length = math.hypot(x1 - x0, y1 - y0)
+        if distance <= length:
+            t = distance / length
+            return x0 + (x1 - x0) * t, y0 + (y1 - y0) * t
+        distance -= length
+    return vertices[0]
 
-def move_top():
-    move_line(50, 550, 750, 550)
 
-def move_right():
-    move_line(750, 550, 750, 50)
+def position(phase, distance):
+    if phase == 0:
+        angle = distance / RADIUS
+        return (CENTER[0] + RADIUS * math.cos(angle),
+                CENTER[1] + RADIUS * math.sin(angle))
+    return polygon_position(RECTANGLE if phase == 1 else TRIANGLE, distance)
 
-def move_bottom():
-    move_line(750, 50, 50, 50)
-
-def move_left():
-    move_line(50, 50, 50, 550)
-
-def move_rectangle():
-    if not running:
-        return
-    move_top()
-    if not running:
-        return
-    move_right()
-    if not running:
-        return
-    move_bottom()
-    if not running:
-        return
-    move_left()
-
-def triangle_base():
-    move_line(100, 100, 700, 100)
-
-def triangle_up():
-    move_line(700, 100, 400, 500)
-
-def triangle_down():
-    move_line(400, 500, 100, 100)
-
-def move_triangle():
-    if not running:
-        return
-    triangle_base()
-    if not running:
-        return
-    triangle_up()
-    if not running:
-        return
-    triangle_down()
-
-def run_cycle():
-    if not running:
-        return
-    move_circle()
-    if not running:
-        return
-    move_rectangle()
-    if not running:
-        return
-    move_triangle()
 
 def main():
-    global character, running
+    lengths = [2 * math.pi * RADIUS, perimeter(RECTANGLE), perimeter(TRIANGLE)]
+    phase = 0
+    distance = 0.0
     open_canvas(WIDTH, HEIGHT)
-    character = load_image(str(Path(__file__).with_name('character.png')))
-    running = True
     try:
-        while running:
-            handle_events()
-            run_cycle()
+        character = load_image(str(Path(__file__).with_name('character.png')))
+        previous = time.perf_counter()
+        while True:
+            events = get_events()
+            if any(event.type == SDL_QUIT or
+                   (event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE)
+                   for event in events):
+                break
+
+            now = time.perf_counter()
+            # 잠깐 멈췄다 돌아와도 한 프레임에 크게 건너뛰지 않는다.
+            distance += SPEED * min(max(now - previous, 0), 0.05)
+            previous = now
+            while distance >= lengths[phase]:
+                distance -= lengths[phase]
+                phase = (phase + 1) % 3
+
+            x, y = position(phase, distance)
+            clear_canvas()
+            character.draw(x, y)
+            update_canvas()
+            delay(0.01)
     except KeyboardInterrupt:
         pass
     finally:
         close_canvas()
+
 
 if __name__ == '__main__':
     main()
