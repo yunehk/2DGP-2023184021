@@ -27,6 +27,15 @@ def draw_character(x, y):
     delay(0.02)
     return True
 
+def move_line(x0, y0, x1, y1):
+    steps = 100
+    for step in range(steps + 1):
+        t = step / steps
+        x = x0 + (x1 - x0) * t
+        y = y0 + (y1 - y0) * t
+        if not draw_character(x, y):
+            return
+
 def move_circle():
     for degree in range(361):
         theta = math.radians(degree)
@@ -36,24 +45,16 @@ def move_circle():
             return
 
 def move_top():
-    for x in range(50, 751, 5):
-        if not draw_character(x, 550):
-            return
+    move_line(50, 550, 750, 550)
 
 def move_right():
-    for y in range(550, 49, -5):
-        if not draw_character(750, y):
-            return
+    move_line(750, 550, 750, 50)
 
 def move_bottom():
-    for x in range(750, 49, -5):
-        if not draw_character(x, 50):
-            return
+    move_line(750, 50, 50, 50)
 
 def move_left():
-    for y in range(50, 551, 5):
-        if not draw_character(50, y):
-            return
+    move_line(50, 50, 50, 550)
 
 def move_rectangle():
     if not running:
@@ -70,28 +71,13 @@ def move_rectangle():
     move_left()
 
 def triangle_base():
-    for step in range(101):
-        t = step / 100
-        x = 100 + (700 - 100) * t
-        y = 100 + (100 - 100) * t
-        if not draw_character(x, y):
-            return
+    move_line(100, 100, 700, 100)
 
 def triangle_up():
-    for step in range(101):
-        t = step / 100
-        x = 700 + (400 - 700) * t
-        y = 100 + (500 - 100) * t
-        if not draw_character(x, y):
-            return
+    move_line(700, 100, 400, 500)
 
 def triangle_down():
-    for step in range(101):
-        t = step / 100
-        x = 400 + (100 - 400) * t
-        y = 500 + (100 - 500) * t
-        if not draw_character(x, y):
-            return
+    move_line(400, 500, 100, 100)
 
 def move_triangle():
     if not running:
