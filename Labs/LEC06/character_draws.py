@@ -92,10 +92,15 @@ def move_left():
 def move_rectangle():
     print("rectangle")
     move_top()
+    if not running:
+        return
     move_right()
+    if not running:
+        return
     move_bottom()
+    if not running:
+        return
     move_left()
-    pass
 
 def move_triangle():
     print("triangle")
