@@ -6,6 +6,12 @@ open_canvas(800, 600)
 character = load_image('character.png')
 running = True
 
+def handle_events():
+    global running
+    for event in get_events():
+        if event.type == SDL_QUIT:
+            running = False
+
 def move_triangle_bottom():
     print("triangle bottom")
     for step in range(121):
@@ -87,6 +93,7 @@ def move_triangle():
 
 
 while running:
+    handle_events()
     move_circle()
     move_rectangle()
     move_triangle()
