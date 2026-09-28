@@ -6,6 +6,12 @@ open_canvas(800, 600)
 character = load_image('character.png')
 running = True
 
+def handle_events():
+    global running
+    for event in get_events():
+        if event.type == SDL_QUIT:
+            running = False
+
 def draw_character(x, y):
     clear_canvas()
     character.draw(x, y)
@@ -74,5 +80,6 @@ def run_cycle():
     move_triangle()
 
 while running:
+    handle_events()
     run_cycle()
 close_canvas()
