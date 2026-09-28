@@ -72,5 +72,6 @@ def run_cycle():
     move_rectangle()
     move_triangle()
 
-run_cycle()
+while True:
+    run_cycle()
 close_canvas()
