@@ -4,6 +4,7 @@ import math
 
 open_canvas(800, 600)
 character = load_image('character.png')
+running = True
 
 def draw_character(x, y):
     clear_canvas()
@@ -72,6 +73,6 @@ def run_cycle():
     move_rectangle()
     move_triangle()
 
-while True:
+while running:
     run_cycle()
 close_canvas()
