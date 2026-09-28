@@ -6,10 +6,6 @@ WIDTH, HEIGHT = 800, 600
 PIXELS_PER_FRAME = 5
 FRAME_DELAY = 0.01
 
-open_canvas(WIDTH, HEIGHT)
-character = load_image(str(Path(__file__).with_name('character.png')))
-running = True
-
 def handle_events():
     global running
     for event in get_events():
@@ -104,11 +100,19 @@ def run_cycle():
         return
     move_triangle()
 
-try:
-    while running:
-        handle_events()
-        run_cycle()
-except KeyboardInterrupt:
-    pass
-finally:
-    close_canvas()
+def main():
+    global character, running
+    open_canvas(WIDTH, HEIGHT)
+    character = load_image(str(Path(__file__).with_name('character.png')))
+    running = True
+    try:
+        while running:
+            handle_events()
+            run_cycle()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        close_canvas()
+
+if __name__ == '__main__':
+    main()
