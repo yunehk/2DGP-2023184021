@@ -114,16 +114,19 @@ def move_triangle():
 
 
 
-while running:
-    handle_events()
-    if not running:
-        break
-    move_circle()
-    if not running:
-        break
-    move_rectangle()
-    if not running:
-        break
-    move_triangle()
-
-close_canvas()
+try:
+    while running:
+        handle_events()
+        if not running:
+            break
+        move_circle()
+        if not running:
+            break
+        move_rectangle()
+        if not running:
+            break
+        move_triangle()
+except KeyboardInterrupt:
+    pass
+finally:
+    close_canvas()
