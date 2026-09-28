@@ -112,7 +112,9 @@ def run_cycle():
         return
     move_triangle()
 
-while running:
-    handle_events()
-    run_cycle()
-close_canvas()
+try:
+    while running:
+        handle_events()
+        run_cycle()
+finally:
+    close_canvas()
