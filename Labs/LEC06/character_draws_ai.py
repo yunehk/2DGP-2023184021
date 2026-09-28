@@ -67,7 +67,10 @@ def move_triangle():
     triangle_up()
     triangle_down()
 
-move_circle()
-move_rectangle()
-move_triangle()
+def run_cycle():
+    move_circle()
+    move_rectangle()
+    move_triangle()
+
+run_cycle()
 close_canvas()
