@@ -22,6 +22,11 @@ def move_triangle_up():
 
 def move_triangle_down():
     print("triangle down")
+    for step in range(101):
+        t = step / 100
+        x = 400 + (100 - 400) * t
+        y = 500 + (100 - 500) * t
+        draw_character(x, y)
 
 def draw_character(x, y):
     clear_canvas()
