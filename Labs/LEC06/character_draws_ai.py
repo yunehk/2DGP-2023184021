@@ -4,6 +4,7 @@ from pathlib import Path
 
 WIDTH, HEIGHT = 800, 600
 PIXELS_PER_FRAME = 5
+FRAME_DELAY = 0.01
 
 open_canvas(WIDTH, HEIGHT)
 character = load_image(str(Path(__file__).with_name('character.png')))
@@ -24,7 +25,7 @@ def draw_character(x, y):
     clear_canvas()
     character.draw(x, y)
     update_canvas()
-    delay(0.02)
+    delay(FRAME_DELAY)
     return True
 
 def move_line(x0, y0, x1, y1):
