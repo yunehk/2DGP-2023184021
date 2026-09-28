@@ -2,8 +2,10 @@ from pico2d import *
 import math
 from pathlib import Path
 
+WIDTH, HEIGHT = 800, 600
+PIXELS_PER_FRAME = 5
 
-open_canvas(800, 600)
+open_canvas(WIDTH, HEIGHT)
 character = load_image(str(Path(__file__).with_name('character.png')))
 running = True
 
