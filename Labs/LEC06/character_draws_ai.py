@@ -1,9 +1,10 @@
 from pico2d import *
 import math
+from pathlib import Path
 
 
 open_canvas(800, 600)
-character = load_image('character.png')
+character = load_image(str(Path(__file__).with_name('character.png')))
 running = True
 
 def handle_events():
