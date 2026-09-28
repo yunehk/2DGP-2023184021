@@ -48,8 +48,16 @@ def triangle_base():
         y = 100 + (100 - 100) * t
         draw_character(x, y)
 
+def triangle_up():
+    for step in range(101):
+        t = step / 100
+        x = 700 + (400 - 700) * t
+        y = 100 + (500 - 100) * t
+        draw_character(x, y)
+
 def move_triangle():
     triangle_base()
+    triangle_up()
 
 move_circle()
 move_rectangle()
