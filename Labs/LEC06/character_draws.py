@@ -7,7 +7,9 @@ character = load_image('character.png')
 
 def move_triangle_bottom():
     print("triangle bottom")
-    for x in range(100, 701, 5):
+    for step in range(121):
+        t = step / 120
+        x = 100 + (700 - 100) * t
         draw_character(x, 100)
 
 
