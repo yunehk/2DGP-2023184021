@@ -4,6 +4,7 @@ import math
 open_canvas(800, 600)
 
 character = load_image('character.png')
+running = True
 
 def move_triangle_bottom():
     print("triangle bottom")
@@ -85,7 +86,7 @@ def move_triangle():
 
 
 
-while True:
+while running:
     move_circle()
     move_rectangle()
     move_triangle()
