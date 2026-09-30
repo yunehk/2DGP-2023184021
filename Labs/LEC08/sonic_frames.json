@@ -197,6 +197,61 @@
       ],
       "frame_seconds": 0.1,
       "name": "spin"
+    },
+    {
+      "label": "Tumble",
+      "frames": [
+        {
+          "width": 24,
+          "x": 1,
+          "y": 327,
+          "height": 44
+        },
+        {
+          "width": 29,
+          "x": 31,
+          "y": 327,
+          "height": 44
+        },
+        {
+          "width": 20,
+          "x": 65,
+          "y": 327,
+          "height": 44
+        },
+        {
+          "width": 25,
+          "x": 90,
+          "y": 327,
+          "height": 43
+        },
+        {
+          "width": 25,
+          "x": 119,
+          "y": 327,
+          "height": 43
+        },
+        {
+          "width": 20,
+          "x": 149,
+          "y": 327,
+          "height": 44
+        },
+        {
+          "width": 40,
+          "x": 184,
+          "y": 341,
+          "height": 28
+        },
+        {
+          "width": 39,
+          "x": 232,
+          "y": 341,
+          "height": 27
+        }
+      ],
+      "frame_seconds": 0.1,
+      "name": "tumble"
     }
   ]
 }
