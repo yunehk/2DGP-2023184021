@@ -20,6 +20,7 @@ def main():
     try:
         p.hide_lattice()
         image = p.load_image(str(FOLDER / data['image']))
+        font = p.load_font('C:/Windows/Fonts/arial.ttf', 20)
         scale = display_scale(animations, WIDTH, HEIGHT)
         running = True
         previous = time.monotonic()
@@ -37,6 +38,12 @@ def main():
             previous = now
             p.clear_canvas()
             draw_frame(image, player.frame, scale, (WIDTH / 2, HEIGHT / 2))
+            cycle = min(player.completed_cycles + 1, player.repeats)
+            state = 'HOLD 1 second' if player.holding else f'Cycle {cycle}/5'
+            font.draw(20, HEIGHT - 22,
+                      f'{player.animation.label} | {state} | '
+                      f'Frame {player.frame_index + 1}/{len(player.animation.frames)}')
+            font.draw(20, 22, 'Walk > Run > Spin > Tumble     ESC: exit')
             p.update_canvas()
             p.delay(0.01)
     finally:
