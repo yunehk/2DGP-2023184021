@@ -1,61 +1,46 @@
-from pico2d import *
+"""Drill 8: four irregular-sheet animations, five loops each, one-second holds."""
 from pathlib import Path
 import time
 
+import pico2d as p
 
-running = True
-
-
-def check_events():
-    global running
-    for event in get_events():
-        if event.type == SDL_QUIT:
-            running = False
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            running = False
+from animation_data import load_animations
+from animation_player import Playback
+from animation_render import display_scale, draw_frame
 
 
-def pause(seconds):
-    end_time = time.monotonic() + seconds
-    while running and time.monotonic() < end_time:
-        check_events()
-        delay(0.01)
+WIDTH, HEIGHT = 800, 600
+FOLDER = Path(__file__).resolve().parent
 
 
 def main():
-    open_canvas(800, 600)
+    data, animations = load_animations(FOLDER / 'sonic_frames.json')
+    player = Playback(animations)
+    p.open_canvas(WIDTH, HEIGHT)
     try:
-        folder = Path(__file__).resolve().parent
-        boy = load_image(str(folder.parent / 'LEC08_Animation' / 'animation_sheet.png'))
-
-        # Top to bottom: idle right, idle left, run right, run left.
+        p.hide_lattice()
+        image = p.load_image(str(FOLDER / data['image']))
+        scale = display_scale(animations, WIDTH, HEIGHT)
+        running = True
+        previous = time.monotonic()
         while running:
-            for row in [3, 2, 1, 0]:
-                if not running:
-                    break
+            for event in p.get_events():
+                if event.type == p.SDL_QUIT:
+                    running = False
+                elif event.type == p.SDL_KEYDOWN and event.key == p.SDLK_ESCAPE:
+                    running = False
+            if not running:
+                break
 
-                frame = 0
-                # Eight frames per animation, repeated five times.
-                for _ in range(8 * 5):
-                    check_events()
-                    if not running:
-                        break
-
-                    clear_canvas()
-                    boy.clip_draw(
-                        frame * 100, row * 100,
-                        100, 100,
-                        400, 300,
-                        600, 600
-                    )
-                    update_canvas()
-                    frame = (frame + 1) % 8
-                    pause(0.1)
-
-                # Hold the last frame for one second.
-                pause(1.0)
+            now = time.monotonic()
+            player.update(now - previous)
+            previous = now
+            p.clear_canvas()
+            draw_frame(image, player.frame, scale, (WIDTH / 2, HEIGHT / 2))
+            p.update_canvas()
+            p.delay(0.01)
     finally:
-        close_canvas()
+        p.close_canvas()
 
 
 if __name__ == '__main__':
