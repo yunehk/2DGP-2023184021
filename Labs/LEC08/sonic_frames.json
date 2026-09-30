@@ -136,6 +136,67 @@
       ],
       "frame_seconds": 0.1,
       "name": "run"
+    },
+    {
+      "label": "Spin",
+      "frames": [
+        {
+          "width": 29,
+          "x": 1,
+          "y": 169,
+          "height": 30
+        },
+        {
+          "width": 29,
+          "x": 35,
+          "y": 167,
+          "height": 31
+        },
+        {
+          "width": 30,
+          "x": 67,
+          "y": 169,
+          "height": 29
+        },
+        {
+          "width": 31,
+          "x": 98,
+          "y": 169,
+          "height": 29
+        },
+        {
+          "width": 29,
+          "x": 131,
+          "y": 168,
+          "height": 30
+        },
+        {
+          "width": 29,
+          "x": 162,
+          "y": 168,
+          "height": 31
+        },
+        {
+          "width": 30,
+          "x": 193,
+          "y": 170,
+          "height": 29
+        },
+        {
+          "width": 31,
+          "x": 230,
+          "y": 170,
+          "height": 29
+        },
+        {
+          "width": 30,
+          "x": 268,
+          "y": 170,
+          "height": 30
+        }
+      ],
+      "frame_seconds": 0.1,
+      "name": "spin"
     }
   ]
 }
