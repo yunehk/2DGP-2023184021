@@ -1,6 +1,7 @@
 """Drill 8: four irregular-sheet animations, five loops each, one-second holds."""
 from pathlib import Path
 import time
+import os
 
 import pico2d as p
 
@@ -13,6 +14,15 @@ WIDTH, HEIGHT = 800, 600
 FOLDER = Path(__file__).resolve().parent
 
 
+def optional_font():
+    fonts = Path(os.environ.get('WINDIR', 'C:/Windows')) / 'Fonts'
+    for name in ('arial.ttf', 'malgun.ttf'):
+        path = fonts / name
+        if path.is_file():
+            return p.load_font(str(path), 20)
+    return None
+
+
 def main():
     data, animations = load_animations(FOLDER / 'sonic_frames.json')
     player = Playback(animations)
@@ -20,7 +30,9 @@ def main():
     try:
         p.hide_lattice()
         image = p.load_image(str(FOLDER / data['image']))
-        font = p.load_font('C:/Windows/Fonts/arial.ttf', 20)
+        if (image.w, image.h) != (data['image_width'], data['image_height']):
+            raise ValueError('Sprite sheet dimensions do not match metadata')
+        font = optional_font()
         scale = display_scale(animations, WIDTH, HEIGHT)
         running = True
         previous = time.monotonic()
@@ -38,12 +50,13 @@ def main():
             previous = now
             p.clear_canvas()
             draw_frame(image, player.frame, scale, (WIDTH / 2, HEIGHT / 2))
-            cycle = min(player.completed_cycles + 1, player.repeats)
-            state = 'HOLD 1 second' if player.holding else f'Cycle {cycle}/5'
-            font.draw(20, HEIGHT - 22,
-                      f'{player.animation.label} | {state} | '
-                      f'Frame {player.frame_index + 1}/{len(player.animation.frames)}')
-            font.draw(20, 22, 'Walk > Run > Spin > Tumble     ESC: exit')
+            if font is not None:
+                cycle = min(player.completed_cycles + 1, player.repeats)
+                state = 'HOLD 1 second' if player.holding else f'Cycle {cycle}/5'
+                font.draw(20, HEIGHT - 22,
+                          f'{player.animation.label} | {state} | '
+                          f'Frame {player.frame_index + 1}/{len(player.animation.frames)}')
+                font.draw(20, 22, 'Walk > Run > Spin > Tumble     ESC: exit')
             p.update_canvas()
             p.delay(0.01)
     finally:
