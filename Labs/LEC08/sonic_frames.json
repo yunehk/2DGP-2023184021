@@ -57,6 +57,85 @@
       ],
       "frame_seconds": 0.1,
       "name": "walk"
+    },
+    {
+      "label": "Run",
+      "frames": [
+        {
+          "width": 26,
+          "x": 8,
+          "y": 80,
+          "height": 37
+        },
+        {
+          "width": 27,
+          "x": 37,
+          "y": 80,
+          "height": 37
+        },
+        {
+          "width": 31,
+          "x": 65,
+          "y": 80,
+          "height": 38
+        },
+        {
+          "width": 37,
+          "x": 97,
+          "y": 80,
+          "height": 37
+        },
+        {
+          "width": 32,
+          "x": 135,
+          "y": 80,
+          "height": 35
+        },
+        {
+          "width": 32,
+          "x": 170,
+          "y": 79,
+          "height": 38
+        },
+        {
+          "width": 26,
+          "x": 206,
+          "y": 79,
+          "height": 38
+        },
+        {
+          "width": 24,
+          "x": 238,
+          "y": 80,
+          "height": 37
+        },
+        {
+          "width": 30,
+          "x": 263,
+          "y": 80,
+          "height": 37
+        },
+        {
+          "width": 36,
+          "x": 295,
+          "y": 80,
+          "height": 37
+        },
+        {
+          "width": 32,
+          "x": 334,
+          "y": 80,
+          "height": 36
+        },
+        {
+          "width": 29,
+          "x": 370,
+          "y": 79,
+          "height": 38
+        }
+      ],
+      "frame_seconds": 0.1,
+      "name": "run"
     }
   ]
 }
