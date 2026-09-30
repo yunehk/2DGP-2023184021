@@ -1,0 +1,62 @@
+{
+  "image_height": 525,
+  "image": "sonic-sprite.png",
+  "image_width": 399,
+  "animations": [
+    {
+      "label": "Walk",
+      "frames": [
+        {
+          "width": 29,
+          "x": 1,
+          "y": 39,
+          "height": 39
+        },
+        {
+          "width": 26,
+          "x": 31,
+          "y": 40,
+          "height": 38
+        },
+        {
+          "width": 28,
+          "x": 58,
+          "y": 39,
+          "height": 39
+        },
+        {
+          "width": 30,
+          "x": 86,
+          "y": 40,
+          "height": 38
+        },
+        {
+          "width": 30,
+          "x": 118,
+          "y": 40,
+          "height": 38
+        },
+        {
+          "width": 30,
+          "x": 150,
+          "y": 40,
+          "height": 38
+        },
+        {
+          "width": 28,
+          "x": 182,
+          "y": 40,
+          "height": 38
+        },
+        {
+          "width": 29,
+          "x": 210,
+          "y": 39,
+          "height": 38
+        }
+      ],
+      "frame_seconds": 0.1,
+      "name": "walk"
+    }
+  ]
+}
