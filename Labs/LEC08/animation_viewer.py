@@ -2,6 +2,7 @@
 from pathlib import Path
 import time
 import os
+import argparse
 
 import pico2d as p
 
@@ -63,5 +64,24 @@ def main():
         p.close_canvas()
 
 
+def validate():
+    data, animations = load_animations(FOLDER / 'sonic_frames.json')
+    if not (FOLDER / data['image']).is_file():
+        raise FileNotFoundError(data['image'])
+    scale = display_scale(animations, WIDTH, HEIGHT)
+    sizes = {(f.width, f.height) for a in animations for f in a.frames}
+    print(f'{len(animations)} motions; {len(sizes)} source sizes; scale={scale:.2f}')
+    for animation in animations:
+        count = len(animation.frames)
+        seconds = count * animation.frame_seconds * 5 + 1
+        print(f'{animation.label}: {count} frames, 5 cycles + 1s hold = {seconds:.1f}s')
+
+
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--validate', action='store_true', help='Check frame data without a window')
+    args = parser.parse_args()
+    if args.validate:
+        validate()
+    else:
+        main()
